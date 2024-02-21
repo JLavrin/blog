@@ -4,6 +4,7 @@ import ColorfulTag from "@/infrastructure/components/ColorfulTag/ColorfulTag";
 import dayjs from "@/utils/dayjs";
 import {renderRule, StructuredText, StructuredTextDocument} from "react-datocms";
 import {isParagraph} from "datocms-structured-text-utils";
+import {redirect} from "next/navigation";
 
 type Response = {
   article: {
@@ -63,6 +64,10 @@ export default async function BlogPage({ params: { slug } }: Props) {
       slug,
     }
   })
+
+  if (!article) {
+    redirect('/404')
+  }
 
   const tagsArray = article.tag.includes(',') ? article.tag.split(',') : [article.tag]
   const formattedPublishDate = dayjs(article.publishDate).format('d MMM YYYY')

@@ -7,13 +7,13 @@ type Props = {
   data: BlogIndexResponse['allArticles'][number]
 }
 
-export default function BlogCard({ data }: Props) {
+export default function BlogCard({data}: Props) {
 
   return (
     <Link href={`/blog/${data.slug}/`}>
       <div className="flex flex-col gap-5 cursor-pointer max-w-sm">
         <div className="relative object-cover object-center max-w-sm w-auto h-[240px] overflow-hidden rounded-2xl">
-          <Image className="object-cover object-center" src={data.image.url} alt={data.image.alt} fill />
+          <Image className="object-cover object-center" src={data.image.url} alt={data.image.alt} fill/>
         </div>
         <div className="flex flex-col gap-2">
           <p className="font-semibold text-sm text-purple-700">{data.tag.split(',')[0]}</p>

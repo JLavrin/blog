@@ -1,6 +1,6 @@
 import hubspotClient from "@/utils/hubspot";
 
-const FORM_ID = process.env.HUBSPORT_LEAD_FORM_ID
+const FORM_ID = process.env.HUBSPOT_LEAD_FORM_ID
 const PORTAL_ID = process.env.HUBSPOT_PORTAL_ID
 
 type Payload = {
@@ -10,9 +10,10 @@ type Payload = {
   phoneNumber: string;
 }
 
-export default async function postForm(data: Payload) {
+export default async function postForm(data: Payload, hubspotTrackingCookie: string | undefined) {
   try {
-   const res = await hubspotClient.post(`/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_ID}`, {
+   await hubspotClient.post(`/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_ID}`, {
+      hutk: hubspotTrackingCookie,
       fields: [
         {
           name: 'firstname',
