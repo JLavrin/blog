@@ -26,7 +26,7 @@ export default function FirstArticle({ data }: Props) {
             <div className="flex justify-between w-full text-white">
               <h3 className="text-2xl text-white font-semibold">{data.title}</h3>
               <div className="text-white fill-white">
-                <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28xp" viewBox="0 0 24 24" role="img"
+                <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24" role="img"
                      strokeWidth="1" strokeLinecap="square" color="inherit" stroke="currentColor"
                      strokeLinejoin="miter" fill="none">
                   <path d="M19 13V5h-8"/>

@@ -20,7 +20,7 @@ export default function BlogCard({ data }: Props) {
           <div className="flex justify-between gap-2">
             <h4 className="font-semibold text-xl text-gray-900 line-clamp-2">{data.title}</h4>
             <div className="self-start">
-              <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28xp" viewBox="0 0 24 24" role="img"
+              <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 24 24" role="img"
                    strokeWidth="1" strokeLinecap="square" color="inherit" stroke="currentColor"
                    strokeLinejoin="miter" fill="none">
                 <path d="M19 13V5h-8"/>

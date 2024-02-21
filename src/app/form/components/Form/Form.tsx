@@ -51,6 +51,7 @@ export default function Form() {
         />
       <button
         type="submit"
+        aria-label="Name"
         className="h-12 w-full bg-purple-600 text-white mt-4 py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none">
         Send message
       </button>
