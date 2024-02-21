@@ -26,7 +26,6 @@ export default function RootLayout({ children }: Props) {
           {children}
         </main>
       <Footer />
-      <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/144178191.js"></script>
       </body>
       <GoogleAnalytics gaId="G-G2TC1M5SJE" />
       <GoogleTagManager gtmId="GTM-XYZ" />
