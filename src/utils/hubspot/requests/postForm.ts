@@ -12,7 +12,6 @@ type Payload = {
 
 export default async function postForm(data: Payload) {
   try {
-    console.log('payload', data)
    const res = await hubspotClient.post(`/submissions/v3/integration/submit/${PORTAL_ID}/${FORM_ID}`, {
       fields: [
         {
@@ -33,10 +32,9 @@ export default async function postForm(data: Payload) {
         },
       ],
     });
-    console.log(res.status)
+
     return true;
   } catch (error) {
-    console.log('error', error)
     return false
   }
 }

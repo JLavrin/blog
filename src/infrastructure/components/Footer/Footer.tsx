@@ -21,7 +21,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="mt-16 bg-gray-50 py-12 mx-auto flex flex-col justify-center items-center">
+    <footer className="mt-16 bg-gray-50 py-12 mx-auto flex flex-col px-4 md:px-0 md:justify-center md:items-center">
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 md:mx-8 xl:gap-36 lg:gap-32 gap-24 max-w-7xl">
         {arr.map((url, index) => (
           <div key={index} className="flex flex-col gap-4">

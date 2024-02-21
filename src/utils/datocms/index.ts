@@ -9,7 +9,7 @@ export const performRequest = async <T>({ query = "", variables = {}, includeDra
   });
 
   const responseBody = await response.json();
-  console.log('Request performed');
+
   if (!response.ok) {
     throw new Error(`${response.status} ${response.statusText}: ${JSON.stringify(responseBody)}`);
   }

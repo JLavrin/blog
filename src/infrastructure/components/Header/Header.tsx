@@ -9,6 +9,7 @@ export default function Header() {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+
   return (
     <header className="p-4 h-20 flex items-center">
       <div className="container max-w-7xl mx-auto flex items-center justify-between gap-10">
@@ -16,7 +17,7 @@ export default function Header() {
           <span>Untitled Blog</span>
         </div>
         <nav className="hidden md:flex space-x-4 mr-auto font-semibold text-gray-600 gap-10">
-          <Link  className="block hover:text-gray-500" href="/">
+          <Link className="block hover:text-gray-500" href="/">
             Home
           </Link>
           <Link className="block hover:text-gray-500" href="/blog">
@@ -39,19 +40,19 @@ export default function Header() {
           </button>
           {menuOpen && (
             <div className="absolute top-20 right-0 w-screen h-full bg-white z-10 flex flex-col items-center gap-8 mb-20 p-6">
-              <Link  className="block hover:text-gray-500" href="/">
+              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="/">
                 Home
               </Link>
-              <Link className="block hover:text-gray-500" href="/blog">
+              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="/blog">
                 Blog
               </Link>
-              <Link className="block hover:text-gray-500" href="#">
+              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="#">
                 Some Url
               </Link>
-              <Link className="block hover:text-gray-500" href="#">
+              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="#">
                 Some other Url
               </Link>
-              <Link className="bg-purple-600 text-white rounded-md hover:bg-purple-700 py-2.5 px-4 focus:outline-none" href="/form">
+              <Link onClick={() => setMenuOpen(false)} className="bg-purple-600 text-white rounded-md hover:bg-purple-700 py-2.5 px-4 focus:outline-none" href="/form">
                 Contact us
               </Link>
             </div>

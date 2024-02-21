@@ -45,7 +45,7 @@ export default async function BlogListing() {
 
   return (
     <div className="container">
-      <div className="pt-24 pb-16 flex flex-col gap-3">
+      <div className="pt-16 md:pt-24 pb-16 flex flex-col gap-3">
         <h3 className="font-semibold text-purple-700">Our blog</h3>
         <h2 className="font-semibold text-5xl text-gray-900 mb-3">Resources and insights</h2>
         <p className="text-xl text-gray-600">The latest industry news, interviews, technologies, and resources.</p>

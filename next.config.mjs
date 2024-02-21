@@ -8,7 +8,16 @@ const nextConfig = {
         port: '',
       }
     ]
-  }
+  },
+  redirects: async () => {
+    return [
+      {
+        source: '/',
+        destination: '/blog',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

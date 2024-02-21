@@ -19,7 +19,15 @@ export default function BlogCard({ data }: Props) {
           <p className="font-semibold text-sm text-purple-700">{data.tag.split(',')[0]}</p>
           <div className="flex justify-between gap-2">
             <h4 className="font-semibold text-xl text-gray-900 line-clamp-2">{data.title}</h4>
-            <div>arrow</div>
+            <div className="self-start">
+              <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28xp" viewBox="0 0 24 24" role="img"
+                   strokeWidth="1" strokeLinecap="square" color="inherit" stroke="currentColor"
+                   strokeLinejoin="miter" fill="none">
+                <path d="M19 13V5h-8"/>
+                <path strokeLinecap="round" d="M19 5l-1 1"/>
+                <path d="M 18 6 L 10.558 13.581"/>
+              </svg>
+            </div>
           </div>
           <p className="text-gray-600 mb-4 line-clamp-2">{data.subtitle}</p>
           <div>

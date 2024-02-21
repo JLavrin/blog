@@ -84,10 +84,6 @@ export default async function BlogPage({ params: { slug } }: Props) {
       <div className="max-w-3xl mx-auto gap-8">
         <StructuredText
           data={article.content}
-          renderInlineRecord={(props) => {
-            console.log(props)
-            return null
-          }}
           customNodeRules={[
             renderRule(
               isParagraph,

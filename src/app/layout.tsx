@@ -4,6 +4,7 @@ import "./globals.css";
 import {ReactNode} from "react";
 import Footer from "@/infrastructure/components/Footer";
 import Header from "@/infrastructure/components/Header";
+import { GoogleAnalytics, GoogleTagManager } from "@next/third-parties/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,12 +22,14 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body className={inter.className}>
       <Header />
-        <main className="container max-w-7xl md:mx-auto px-4">
+        <main className="container max-w-7xl md:mx-auto px-4 xl:px-0">
           {children}
         </main>
       <Footer />
       <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/144178191.js"></script>
       </body>
+      <GoogleAnalytics gaId="G-G2TC1M5SJE" />
+      <GoogleTagManager gtmId="GTM-XYZ" />
     </html>
   );
 }
