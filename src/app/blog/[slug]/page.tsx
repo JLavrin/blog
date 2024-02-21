@@ -2,9 +2,8 @@ import {performRequest} from "@/utils/datocms";
 import Image from "next/image";
 import ColorfulTag from "@/infrastructure/components/ColorfulTag/ColorfulTag";
 import dayjs from "@/utils/dayjs";
-import isSlugSave from "@/utils/datocms/securityDynamicVariablesCheck";
 import {renderRule, StructuredText, StructuredTextDocument} from "react-datocms";
-import {isHeading, isParagraph} from "datocms-structured-text-utils";
+import {isParagraph} from "datocms-structured-text-utils";
 
 type Response = {
   article: {
@@ -30,15 +29,10 @@ type Props = {
 }
 
 export default async function BlogPage({ params: { slug } }: Props) {
-
-  if (!isSlugSave(slug)) {
-    return null
-  }
-
   const { data: { article } } = await performRequest<Response>({
     query: `
    {
-    article(filter: { slug: { eq: "${slug}" }}) {
+    article(filter: { slug: { eq: $slug }}) {
       id
       slug
       subtitle
@@ -57,7 +51,10 @@ export default async function BlogPage({ params: { slug } }: Props) {
       }
     }
   }
-  `
+  `,
+    variables: {
+      slug,
+    }
   })
 
   const tagsArray = article.tag.includes(',') ? article.tag.split(',') : [article.tag]
@@ -104,4 +101,18 @@ export default async function BlogPage({ params: { slug } }: Props) {
       </div>
     </div>
   )
+}
+
+export async function generateStaticParams() {
+  const { data: { allArticles } } = await performRequest<{ allArticles: { slug: string}[]}>({
+    query: `
+   {
+    allArticles {
+      slug
+    }
+  }
+  `
+  })
+
+  return allArticles.map(article => ({ params: { slug: article.slug } }))
 }
