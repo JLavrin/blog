@@ -1,15 +1,14 @@
-import colorGenerator from "@/utils/colorGenerator";
+import colorGenerator from '@/utils/colorGenerator';
 
 type Props = {
   value: string;
   monochrome?: boolean;
 };
 
-
-export default function ColorfulTag({ value, monochrome }: Props) {
-   const { text, border, background} =  monochrome
-     ? { text: 'white', background: 'transparent', border: 'white'}
-     : colorGenerator(value);
+export default function ColorfulTag({ value, monochrome = false }: Props) {
+  const { text, border, background } = monochrome
+    ? { text: 'white', background: 'transparent', border: 'white' }
+    : colorGenerator(value);
 
   return (
     <div

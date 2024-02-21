@@ -1,5 +1,5 @@
-import {ReactNode} from "react";
-import {useFormContext} from "react-hook-form";
+import { ReactNode } from 'react';
+import { useFormContext } from 'react-hook-form';
 
 type Props = {
   name: string
@@ -21,7 +21,7 @@ export default function Checkbox({ name, label }: Props) {
       <label htmlFor={name} className="ml-2 text-gray-700 text-base">
         {label}
       </label>
-      {error && <p className="text-red-500 text-sm mt-1"></p>}
+      {error && <p className="text-red-500 text-sm mt-1" />}
     </div>
   )
 }

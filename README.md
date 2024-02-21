@@ -1,5 +1,8 @@
 # Blog
 
+### Prerequisites
+- Node.js 20.x
+
 ### Development
 
 Copy .env.example to .env

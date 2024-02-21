@@ -1,5 +1,5 @@
-import {performRequest} from "@/utils/datocms";
-import LatestPostsLayout from "@/infrastructure/components/LatestPostsLayout";
+import { performRequest } from '@/utils/datocms';
+import LatestPostsLayout from '@/infrastructure/components/LatestPostsLayout';
 
 export type BlogIndexResponse = {
   allArticles: {
@@ -18,7 +18,7 @@ export type BlogIndexResponse = {
 }
 
 export default async function ThankYouPage() {
-  const {data: {allArticles}} = await performRequest<BlogIndexResponse>({
+  const { data: { allArticles } } = await performRequest<BlogIndexResponse>({
     query: `
    {
     allArticles(first: "3") {
@@ -35,7 +35,7 @@ export default async function ThankYouPage() {
       }
     }
   }
-  `
+  `,
   })
 
   return (
@@ -47,7 +47,8 @@ export default async function ThankYouPage() {
           </p>
           <h1 className="text-5xl font-semibold">Your form submission has been received.</h1>
         </div>
-        <h2 className="text-xl text-gray-600">We appreciate your interest and will get back to you as soon as possible.
+        <h2 className="text-xl text-gray-600">
+          We appreciate your interest and will get back to you as soon as possible.
         </h2>
       </div>
     </LatestPostsLayout>

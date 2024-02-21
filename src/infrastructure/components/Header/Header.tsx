@@ -1,7 +1,7 @@
 'use client'
-import Link from "next/link";
-import {useState} from "react";
-import Head from "next/head";
+
+import Link from 'next/link';
+import { useState } from 'react';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -23,19 +23,19 @@ export default function Header() {
           <Link className="block hover:text-gray-500" href="/blog">
             Blog
           </Link>
-          <Link className="block hover:text-gray-500" href="#">
+          <Link className="block hover:text-gray-500" href="/#">
             Some Url
           </Link>
-          <Link className="block hover:text-gray-500" href="#">
+          <Link className="block hover:text-gray-500" href="/#">
             Some other Url
           </Link>
         </nav>
         <div className="block md:hidden">
-          <button onClick={toggleMenu} aria-label="Menu toggle" className="focus:outline-none text-gray-700">
+          <button type="button" onClick={toggleMenu} aria-label="Menu toggle" className="focus:outline-none text-gray-700">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16"></path>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 12h16"></path>
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 18h16"></path>
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 12h16" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 18h16" />
             </svg>
           </button>
           {menuOpen && (
@@ -46,10 +46,10 @@ export default function Header() {
               <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="/blog">
                 Blog
               </Link>
-              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="#">
+              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="/#">
                 Some Url
               </Link>
-              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="#">
+              <Link onClick={() => setMenuOpen(false)} className="block hover:text-gray-500" href="/#">
                 Some other Url
               </Link>
               <Link onClick={() => setMenuOpen(false)} className="bg-purple-600 text-white rounded-md hover:bg-purple-700 py-2.5 px-4 focus:outline-none" href="/form">

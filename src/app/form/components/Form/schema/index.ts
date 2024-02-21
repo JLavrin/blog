@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 
 const formSchema = z.object({
   firstName: z.string().min(1),

@@ -1,5 +1,7 @@
-import { v4 as uuid } from "uuid";
-import {FieldError, FieldValues, useFormContext, UseFormRegister} from "react-hook-form";
+import { v4 as uuid } from 'uuid';
+import {
+  FieldError, FieldValues, useFormContext,
+} from 'react-hook-form';
 
 type Props = {
   name: string;
@@ -8,8 +10,9 @@ type Props = {
   textarea?: boolean;
 };
 
-
-export default function Input({ label, textarea, name, placeholder }: Props) {
+export default function Input({
+  label, name, placeholder, textarea = false,
+}: Props) {
   const id = `input-${name}-${uuid()}`;
   const {
     register,
@@ -24,26 +27,26 @@ export default function Input({ label, textarea, name, placeholder }: Props) {
         {label}
       </label>
       {
-        textarea ?
-        (
-          <textarea
-            id={id}
-            placeholder={placeholder}
-            className={`p-2 w-full border border-gray-300 text-sm rounded focus:outline-none ${!!error && 'text-red-500 border-red-500'}`}
-            rows={4}
-            {...register(name as keyof FieldValues)}
-          />
-        ) : (
-          <input
-            id={id}
-            className={`
+        textarea
+          ? (
+            <textarea
+              id={id}
+              placeholder={placeholder}
+              className={`p-2 w-full border border-gray-300 text-sm rounded focus:outline-none ${!!error && 'text-red-500 border-red-500'}`}
+              rows={4}
+              {...register(name as keyof FieldValues)}
+            />
+          ) : (
+            <input
+              id={id}
+              className={`
               appearance-none border rounded h-11 w-full py-2 px-3 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline
               ${!!error && 'text-red-500 border-red-500'}
             `}
-            type="text"
-            placeholder={placeholder}
-            {...register(name as keyof FieldValues)}
-          />
+              type="text"
+              placeholder={placeholder}
+              {...register(name as keyof FieldValues)}
+            />
           )
       }
       {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}

@@ -1,6 +1,6 @@
-import { performRequest } from "@/utils/datocms";
-import FirstArticle from "@/app/blog/components/FirstArticle";
-import BlogCard from "@/app/blog/components/BlogCard";
+import { performRequest } from '@/utils/datocms';
+import FirstArticle from '@/app/blog/components/FirstArticle';
+import BlogCard from '@/app/blog/components/BlogCard';
 
 export type BlogIndexResponse = {
   allArticles: {
@@ -36,7 +36,7 @@ export default async function BlogListing() {
       }
     }
   }
-  `
+  `,
   })
 
   const [firstArticle, ...restArticles] = allArticles
@@ -51,11 +51,10 @@ export default async function BlogListing() {
       <FirstArticle data={firstArticle} />
       <div className="w-9/12 h-px bg-gray-200 my-12 mx-auto" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
-        {restArticles.map(article => (
+        {restArticles.map((article) => (
           <BlogCard key={article.id} data={article} />
         ))}
       </div>
     </div>
   )
 }
-

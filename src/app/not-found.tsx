@@ -1,5 +1,5 @@
-import {performRequest} from "@/utils/datocms";
-import LatestPostsLayout from "@/infrastructure/components/LatestPostsLayout";
+import { performRequest } from '@/utils/datocms';
+import LatestPostsLayout from '@/infrastructure/components/LatestPostsLayout';
 
 export type BlogIndexResponse = {
   allArticles: {
@@ -18,7 +18,7 @@ export type BlogIndexResponse = {
 }
 
 export default async function NotFoundPage() {
-  const {data: {allArticles}} = await performRequest<BlogIndexResponse>({
+  const { data: { allArticles } } = await performRequest<BlogIndexResponse>({
     query: `
    {
     allArticles(first: "3") {
@@ -35,7 +35,7 @@ export default async function NotFoundPage() {
       }
     }
   }
-  `
+  `,
   })
 
   return (
@@ -47,7 +47,8 @@ export default async function NotFoundPage() {
           </p>
           <h1 className="text-5xl font-semibold">We lost this page</h1>
         </div>
-        <h2 className="text-xl text-gray-600">We searched high and low, but couldn’t find what you’re looking for. Let’s find a better place for you to go.
+        <h2 className="text-xl text-gray-600">
+          We searched high and low, but couldn’t find what you’re looking for. Let’s find a better place for you to go.
         </h2>
       </div>
     </LatestPostsLayout>

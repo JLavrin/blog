@@ -1,10 +1,10 @@
-import {performRequest} from "@/utils/datocms";
-import Image from "next/image";
-import ColorfulTag from "@/infrastructure/components/ColorfulTag/ColorfulTag";
-import dayjs from "@/utils/dayjs";
-import {renderRule, StructuredText, StructuredTextDocument} from "react-datocms";
-import {isParagraph} from "datocms-structured-text-utils";
-import {redirect} from "next/navigation";
+import Image from 'next/image';
+import { renderRule, StructuredText, StructuredTextDocument } from 'react-datocms';
+import { redirect } from 'next/navigation';
+import { isParagraph } from 'datocms-structured-text-utils';
+import dayjs from '@/utils/dayjs';
+import ColorfulTag from '@/infrastructure/components/ColorfulTag/ColorfulTag';
+import { performRequest } from '@/utils/datocms';
 
 type Response = {
   article: {
@@ -62,7 +62,7 @@ export default async function BlogPage({ params: { slug } }: Props) {
   `,
     variables: {
       slug,
-    }
+    },
   })
 
   if (!article) {
@@ -77,12 +77,15 @@ export default async function BlogPage({ params: { slug } }: Props) {
     <div className="py-24 flex flex-col gap-16">
       <div className="flex flex-col justify-center text-center gap-8 max-w-3xl mx-auto">
         <div className="flex flex-col justify-center text-center gap-4">
-          <time className="text-purple-600 text-base font-semibold" dateTime={seoDateTime}>Published {formattedPublishDate}</time>
+          <time className="text-purple-600 text-base font-semibold" dateTime={seoDateTime}>
+            Published
+            {formattedPublishDate}
+          </time>
           <h1 className="text-5xl font-semibold">{article.title}</h1>
         </div>
-          <h2 className="text-xl text-gray-600">{article.subtitle}</h2>
+        <h2 className="text-xl text-gray-600">{article.subtitle}</h2>
         <div className="flex gap-2 justify-center items-middle">
-          {tagsArray.map(tag => (
+          {tagsArray.map((tag) => (
             <ColorfulTag key={tag} value={tag} />
           ))}
         </div>
@@ -108,17 +111,16 @@ export default async function BlogPage({ params: { slug } }: Props) {
           customNodeRules={[
             renderRule(
               isParagraph,
-              ({ node, adapter: { renderNode }, children, key }) => {
+              ({ adapter: { renderNode }, children, key }) => {
                 // @ts-ignore - child type is not defined in types
-                const hasStrong = children?.some(child => child.type === 'strong')
+                const hasStrong = children?.some((child) => child.type === 'strong')
 
                 if (hasStrong) {
-                  return renderNode(`p`, { key, className: 'text-2xl text-gray-900 semi-bold my-8' }, children);
+                  return renderNode('p', { key, className: 'text-2xl text-gray-900 semi-bold my-8' }, children);
                 }
 
-
-                return renderNode(`p`, { key, className: 'text-lg font-normal text-gray-600 mb-4' }, children);
-              },
+                return renderNode('p', { key, className: 'text-lg font-normal text-gray-600 mb-4' }, children);
+              }
             ),
           ]}
         />
@@ -128,15 +130,15 @@ export default async function BlogPage({ params: { slug } }: Props) {
 }
 
 export async function generateStaticParams() {
-  const { data: { allArticles } } = await performRequest<{ allArticles: { slug: string}[]}>({
+  const { data: { allArticles } } = await performRequest<{ allArticles: { slug: string }[] }>({
     query: `
    {
     allArticles {
       slug
     }
   }
-  `
+  `,
   })
 
-  return allArticles.map(({ slug } ) => ({ slug }));
+  return allArticles.map(({ slug }) => ({ slug }));
 }
