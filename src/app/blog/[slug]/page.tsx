@@ -31,7 +31,7 @@ type Props = {
 export default async function BlogPage({ params: { slug } }: Props) {
   const { data: { article } } = await performRequest<Response>({
     query: `
-   {
+   query GetArticle($slug: String!) {
     article(filter: { slug: { eq: $slug }}) {
       id
       slug
@@ -40,7 +40,14 @@ export default async function BlogPage({ params: { slug } }: Props) {
       title
       publishDate
       content {
-        blocks
+        blocks {
+          inlineImage {
+            alt
+            url
+            id
+          }
+          id
+        }
         links
         value
       }
@@ -81,6 +88,19 @@ export default async function BlogPage({ params: { slug } }: Props) {
       <div className="max-w-3xl mx-auto gap-8">
         <StructuredText
           data={article.content}
+          renderBlock={({ record }) => {
+            console.log(record)
+            if (record.item === 'IEjxhREiSr2Aa3K8SV_IWQ') {
+              return (
+                <div className="relative w-full h-[400px]">
+                  {/* @ts-ignore - fill prop is not defined in types */}
+                  <Image src={record.inlineImage.url} alt={record.inlineImage.alt} fill />
+                </div>
+              )
+            }
+
+            return null;
+          }}
           customNodeRules={[
             renderRule(
               isParagraph,
@@ -114,5 +134,5 @@ export async function generateStaticParams() {
   `
   })
 
-  return allArticles.map(article => ({ params: { slug: article.slug } }))
+  return allArticles.map(({ slug } ) => ({ slug }));
 }

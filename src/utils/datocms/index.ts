@@ -11,6 +11,5 @@ export const performRequest = async <T>({ query = "", variables = {}}): Promise<
   });
 
 
-
   return response.data;
 }
