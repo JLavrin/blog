@@ -21,10 +21,11 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body className={inter.className}>
       <Header />
-        <main className="container md:mx-auto px-4 md:px-16">
+        <main className="container max-w-7xl md:mx-auto px-4">
           {children}
         </main>
       <Footer />
+      <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/144178191.js"></script>
       </body>
     </html>
   );

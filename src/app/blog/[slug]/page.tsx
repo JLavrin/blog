@@ -2,8 +2,9 @@ import {performRequest} from "@/utils/datocms";
 import Image from "next/image";
 import ColorfulTag from "@/infrastructure/components/ColorfulTag/ColorfulTag";
 import dayjs from "@/utils/dayjs";
-import securityDynamicVariablesCheck from "@/utils/datocms/securityDynamicVariablesCheck";
 import isSlugSave from "@/utils/datocms/securityDynamicVariablesCheck";
+import {renderRule, StructuredText, StructuredTextDocument} from "react-datocms";
+import {isHeading, isParagraph} from "datocms-structured-text-utils";
 
 type Response = {
   article: {
@@ -13,7 +14,7 @@ type Response = {
     tag: string
     title: string
     publishDate: string
-    content: 'todo'
+    content: StructuredTextDocument
     author: string
     image: {
       alt: string
@@ -79,6 +80,31 @@ export default async function BlogPage({ params: { slug } }: Props) {
       </div>
       <div className="container relative mx-auto p-4 min-h-96">
         <Image className="object-cover" src={article.image.url} alt={article.image.alt || ''} fill />
+      </div>
+      <div className="max-w-3xl mx-auto gap-8">
+        <StructuredText
+          data={article.content}
+          renderInlineRecord={(props) => {
+            console.log(props)
+            return null
+          }}
+          customNodeRules={[
+            renderRule(
+              isParagraph,
+              ({ node, adapter: { renderNode }, children, key }) => {
+                // @ts-ignore - child type is not defined in types
+                const hasStrong = children?.some(child => child.type === 'strong')
+
+                if (hasStrong) {
+                  return renderNode(`p`, { key, className: 'text-2xl text-gray-900 semi-bold my-8' }, children);
+                }
+
+
+                return renderNode(`p`, { key, className: 'text-lg font-normal text-gray-600 mb-4' }, children);
+              },
+            ),
+          ]}
+        />
       </div>
     </div>
   )
