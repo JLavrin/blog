@@ -7,6 +7,8 @@ import {FormProvider, useForm} from "react-hook-form";
 import formSchema, {FormSchema} from "@/app/form/components/Form/schema";
 import Checkbox from "@/infrastructure/components/Checkbox";
 import {onFormSubmit} from "@/app/form/components/actions";
+import { sendGTMEvent } from '@next/third-parties/google'
+
 
 export default function Form() {
   const methods = useForm({
@@ -24,6 +26,7 @@ export default function Form() {
   })
 
   const handleOnSubmit = async (data: Omit<FormSchema, 'checkbox'>) => {
+    sendGTMEvent({ event: 'form_submitted' })
     await onFormSubmit({...data})
   }
 
@@ -52,7 +55,8 @@ export default function Form() {
       <button
         type="submit"
         aria-label="Name"
-        className="h-12 w-full bg-purple-600 text-white mt-4 py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none">
+        className="h-12 w-full bg-purple-600 text-white mt-4 py-2 px-4 rounded-md hover:bg-purple-700 focus:outline-none"
+      >
         Send message
       </button>
     </form>

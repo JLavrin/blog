@@ -89,7 +89,6 @@ export default async function BlogPage({ params: { slug } }: Props) {
         <StructuredText
           data={article.content}
           renderBlock={({ record }) => {
-            console.log(record)
             if (record.item === 'IEjxhREiSr2Aa3K8SV_IWQ') {
               return (
                 <div className="relative w-full h-[400px]">
