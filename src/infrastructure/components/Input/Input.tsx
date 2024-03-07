@@ -8,10 +8,11 @@ type Props = {
   label: string;
   placeholder: string;
   textarea?: boolean;
+  dataTestId?: string;
 };
 
 export default function Input({
-  label, name, placeholder, textarea = false,
+  label, name, placeholder, textarea = false, dataTestId,
 }: Props) {
   const id = `input-${name}-${uuid()}`;
   const {
@@ -31,6 +32,7 @@ export default function Input({
           ? (
             <textarea
               id={id}
+              data-testid={dataTestId}
               placeholder={placeholder}
               className={`p-2 w-full border border-gray-300 text-sm rounded focus:outline-none ${!!error && 'text-red-500 border-red-500'}`}
               rows={4}
@@ -39,6 +41,7 @@ export default function Input({
           ) : (
             <input
               id={id}
+              data-testid={dataTestId}
               className={`
               appearance-none border rounded h-11 w-full py-2 px-3 text-gray-700 text-sm leading-tight focus:outline-none focus:shadow-outline
               ${!!error && 'text-red-500 border-red-500'}
@@ -49,7 +52,7 @@ export default function Input({
             />
           )
       }
-      {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}
+      {error && <p className="text-red-500 text-sm mt-1" data-testid="error-message">{error.message}</p>}
     </div>
   );
 }

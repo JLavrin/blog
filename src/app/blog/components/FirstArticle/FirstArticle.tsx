@@ -16,7 +16,7 @@ export default function FirstArticle({ data }: Props) {
       <div className="md:hidden">
         <BlogCard data={data} />
       </div>
-      <Link href={`/blog/${data.slug}`}>
+      <Link href={`/blog/${data.slug}`} data-testid="first-article">
         <div
           className="items-end cursor-pointer hidden container relative mx-auto p-4 md:flex min-h-[240px] md:min-h-[720px] rounded-2xl overflow-hidden"
         >

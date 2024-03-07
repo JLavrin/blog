@@ -34,14 +34,15 @@ export default function Form() {
 
       <form className="flex flex-col gap-3" onSubmit={methods.handleSubmit(handleOnSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
-          <Input name="firstName" label="First name" placeholder="First name" />
-          <Input name="lastName" label="Last name" placeholder="Last name" />
+          <Input name="firstName" label="First name" placeholder="First name" dataTestId="firstName" />
+          <Input name="lastName" label="Last name" placeholder="Last name" dataTestId="lastName" />
         </div>
-        <Input name="email" label="Email" placeholder="you@company.com" />
-        <Input name="phoneNumber" label="Phone number" placeholder="+1 (555) 000-000" />
-        <Input name="message" label="Message" placeholder="Leave us a message..." textarea />
+        <Input name="email" label="Email" placeholder="you@company.com" dataTestId="email" />
+        <Input name="phoneNumber" label="Phone number" placeholder="+1 (555) 000-000" dataTestId="phoneNumber" />
+        <Input name="message" label="Message" placeholder="Leave us a message..." textarea dataTestId="message" />
         <Checkbox
           name="checkbox"
+          dataTestId="checkbox"
           label={(
             <>
               You agree to our friendly&nbsp;
