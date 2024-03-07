@@ -30,8 +30,8 @@ export default function LatestPostsLayout({ children, allArticles }: Props) {
           <p className="text-xl text-gray-600">The latest industry news, interviews, technologies, and resources.</p>
         </div>
         <div className="flex  flex-col md:flex-row gap-8 mb-10">
-          {allArticles.map((article) => (
-            <BlogCard key={article.id} data={article} />
+          {allArticles.map((article, index) => (
+            <BlogCard key={article.id} data={article} data-testid={`blog-article-${index + 1}`} />
           ))}
         </div>
         <div className="flex w-full justify-center">
