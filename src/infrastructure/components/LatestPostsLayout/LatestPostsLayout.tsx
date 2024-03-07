@@ -31,7 +31,7 @@ export default function LatestPostsLayout({ children, allArticles }: Props) {
         </div>
         <div className="flex  flex-col md:flex-row gap-8 mb-10">
           {allArticles.map((article, index) => (
-            <BlogCard key={article.id} data={article} data-testid={`blog-article-${index + 1}`} />
+            <BlogCard key={article.id} data={article} index={index} />
           ))}
         </div>
         <div className="flex w-full justify-center">

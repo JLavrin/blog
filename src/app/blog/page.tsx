@@ -48,11 +48,11 @@ export default async function BlogListing() {
         <h2 className="font-semibold text-5xl text-gray-900 mb-3">Resources and insights</h2>
         <p className="text-xl text-gray-600">The latest industry news, interviews, technologies, and resources.</p>
       </div>
-      <FirstArticle data={firstArticle} data-testid="blog-article-1" />
+      <FirstArticle data={firstArticle} />
       <div className="w-9/12 h-px bg-gray-200 my-12 mx-auto" />
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-12 gap-x-8">
         {restArticles.map((article, index) => (
-          <BlogCard data-testid={`blog-article-${index + 2}`} key={article.id} data={article} />
+          <BlogCard index={index} key={article.id} data={article} />
         ))}
       </div>
     </div>
