@@ -13,7 +13,8 @@ jobs:
 
       - name: Install dependencies and build project
         run: |
-          cp .env.feature .env
+          # add secrets to process.env
+            echo "NEXT_PUBLIC_VERCEL_URL=$VERCEL_URL" >> .env.local
           yarn install
           yarn build
 
