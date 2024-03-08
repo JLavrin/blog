@@ -7,6 +7,7 @@ on:
 jobs:
   install_and_build:
     runs-on: ubuntu-latest
+    environment: production
     env:
       CI: true
       HUBSPOT_LEAD_FORM_ID: ${{ secrets.HUBSPOT_LEAD_FORM_ID }}
@@ -24,9 +25,6 @@ jobs:
         with:
           node-version: '20'
           cache: 'yarn'
-
-      - name: copy .env file
-        run: cp .env.example .env
 
       - name: copy secrets from github secret to .env file
         run: |
