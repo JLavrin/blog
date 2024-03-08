@@ -18,7 +18,6 @@ jobs:
 #      run: yarn playwright install --with-deps
   build:
     runs-on: ubuntu-latest
-    needs: prepare
     steps:
     - name: Copy .env file
       run: ls -la
