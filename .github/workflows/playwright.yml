@@ -49,6 +49,14 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+    environment: production
+    env:
+      CI: true
+      HUBSPOT_LEAD_FORM_ID: ${{ secrets.HUBSPOT_LEAD_FORM_ID }}
+      HUBSPOT_API_URL: ${{ secrets.HUBSPOT_API_URL }}
+      HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
+      DATOCMS_READONLY_TOKEN: ${{ secrets.DATOCMS_READONLY_TOKEN }}
+      NEXT_DATOCMS_API_TOKEN: ${{ secrets.NEXT_DATOCMS_API_TOKEN }}
 
     needs: prepare
     if: success()
@@ -68,6 +76,15 @@ jobs:
         with:
           name: build
           path: .next
+
+      - name: copy secrets from github secret to .env file
+        run: |
+          echo $HUBSPOT_LEAD_FORM_ID
+          echo HUBSPOT_LEAD_FORM_ID=$HUBSPOT_LEAD_FORM_ID >> .env
+          echo HUBSPOT_API_URL=$HUBSPOT_API_URL >> .env
+          echo HUBSPOT_PORTAL_ID=$HUBSPOT_PORTAL_ID >> .env
+          echo DATOCMS_READONLY_TOKEN=$DATOCMS_READONLY_TOKEN >> .env
+          echo NEXT_DATOCMS_API_TOKEN=$NEXT_DATOCMS_API_TOKEN >> .env
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
