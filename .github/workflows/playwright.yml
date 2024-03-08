@@ -60,7 +60,7 @@ jobs:
           cache: 'yarn'
 
       - name: Run tests with Playwright
-        run: yarn test
+        run: yarn test:e2e
 
   deploy:
     runs-on: ubuntu-latest
