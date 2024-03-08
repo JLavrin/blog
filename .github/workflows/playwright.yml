@@ -7,6 +7,7 @@ on:
 jobs:
   prepare:
     runs-on: ubuntu-latest
+    # to change in production running app
     environment: production
     env:
       CI: true
@@ -49,6 +50,7 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+    # to change in production running app
     environment: production
     env:
       CI: true
@@ -103,6 +105,11 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
+    # to change in production running app
+    environment: production
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
     needs: tests
     if: success()
@@ -116,8 +123,15 @@ jobs:
 
         with:
           node-version: '20'
-          cache: 'yarn'
 
-      - name: Deploy to Vercel
-        run: npx vercel --prod
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+
 
