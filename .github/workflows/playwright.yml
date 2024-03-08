@@ -7,6 +7,13 @@ on:
 jobs:
   install_and_build:
     runs-on: ubuntu-latest
+    env:
+      CI: true
+      HUBSPOT_LEAD_FORM_ID: ${{ secrets.HUBSPOT_LEAD_FORM_ID }}
+      HUBSPOT_API_URL: ${{ secrets.HUBSPOT_API_URL }}
+      HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
+      DATOCMS_READONLY_TOKEN: ${{ secrets.DATOCMS_READONLY_TOKEN }}
+      NEXT_DATOCMS_API_TOKEN: ${{ secrets.NEXT_DATOCMS_API_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,12 +25,11 @@ jobs:
           node-version: '20'
           cache: 'yarn'
 
-      - name: Install dependencies and build project
-        run: |
-          # add secrets to process.env
-            echo "NEXT_PUBLIC_VERCEL_URL=$VERCEL_URL" >> .env.local
-          yarn install
-          yarn build
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build project
+        run: yarn build
 
   lint:
     runs-on: ubuntu-latest
