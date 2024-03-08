@@ -25,6 +25,17 @@ jobs:
           node-version: '20'
           cache: 'yarn'
 
+      - name: copy .env file
+        run: cp .env.example .env
+
+      - name: copy secrets
+        run: echo |
+            ${{ secrets.HUBSPOT_LEAD_FORM_ID }} > .env.local
+            ${{ secrets.HUBSPOT_API_URL }} > .env.local
+            ${{ secrets.HUBSPOT_PORTAL_ID }} > .env.local
+            ${{ secrets.DATOCMS_READONLY_TOKEN }} > .env.local
+            ${{ secrets.NEXT_DATOCMS_API_TOKEN }} > .env.local
+
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
