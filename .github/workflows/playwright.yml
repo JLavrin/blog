@@ -30,11 +30,11 @@ jobs:
 
       - name: copy secrets from github secret to .env file
         run: |
-          echo "HUBSPOT_LEAD_FORM_ID=$HUBSPOT_LEAD_FORM_ID" >> .env
-          echo "HUBSPOT_API_URL=$HUBSPOT_API_URL" >> .env
-          echo "HUBSPOT_PORTAL_ID=$HUBSPOT_PORTAL_ID" >> .env
-          echo "DATOCMS_READONLY_TOKEN=$DATOCMS_READONLY_TOKEN" >> .env
-          echo "NEXT_DATOCMS_API_TOKEN=$NEXT_DATOCMS_API_TOKEN" >> .env
+          echo HUBSPOT_LEAD_FORM_ID=$HUBSPOT_LEAD_FORM_ID >> .env
+          echo HUBSPOT_API_URL=$HUBSPOT_API_URL >> .env
+          echo HUBSPOT_PORTAL_ID=$HUBSPOT_PORTAL_ID >> .env
+          echo DATOCMS_READONLY_TOKEN=$DATOCMS_READONLY_TOKEN >> .env
+          echo NEXT_DATOCMS_API_TOKEN=$NEXT_DATOCMS_API_TOKEN >> .env
           
 
       - name: Install dependencies
