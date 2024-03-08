@@ -45,7 +45,7 @@ jobs:
   tests:
     runs-on: ubuntu-latest
 
-    needs: lint
+    needs: prepare
     if: success()
 
     steps:
