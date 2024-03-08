@@ -1,27 +1,137 @@
-name: Playwright Tests
+name: CI/CD Workflow
+
 on:
-  push:
-    branches: [ main, master ]
   pull_request:
-    branches: [ main, master ]
+    branches:
+      - main
 jobs:
-  test:
-    timeout-minutes: 60
+  prepare:
     runs-on: ubuntu-latest
+    # to change in production running app
+    environment: production
+    env:
+      CI: true
+      HUBSPOT_LEAD_FORM_ID: ${{ secrets.HUBSPOT_LEAD_FORM_ID }}
+      HUBSPOT_API_URL: ${{ secrets.HUBSPOT_API_URL }}
+      HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
+      DATOCMS_READONLY_TOKEN: ${{ secrets.DATOCMS_READONLY_TOKEN }}
+      NEXT_DATOCMS_API_TOKEN: ${{ secrets.NEXT_DATOCMS_API_TOKEN }}
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: lts/*
-    - name: Install dependencies
-      run: npm install -g yarn && yarn
-    - name: Install Playwright Browsers
-      run: yarn playwright install --with-deps
-    - name: Run Playwright tests
-      run: yarn test:e2e
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - name: copy secrets from github secret to .env file
+        run: |
+          echo $HUBSPOT_LEAD_FORM_ID
+          echo HUBSPOT_LEAD_FORM_ID=$HUBSPOT_LEAD_FORM_ID >> .env
+          echo HUBSPOT_API_URL=$HUBSPOT_API_URL >> .env
+          echo HUBSPOT_PORTAL_ID=$HUBSPOT_PORTAL_ID >> .env
+          echo DATOCMS_READONLY_TOKEN=$DATOCMS_READONLY_TOKEN >> .env
+          echo NEXT_DATOCMS_API_TOKEN=$NEXT_DATOCMS_API_TOKEN >> .env
+          
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build project
+        run: yarn build
+
+      - uses: actions/upload-artifact@master
+        with:
+          name: build
+          path: .next
+
+  tests:
+    runs-on: ubuntu-latest
+    # to change in production running app
+    environment: production
+    env:
+      CI: true
+      HUBSPOT_LEAD_FORM_ID: ${{ secrets.HUBSPOT_LEAD_FORM_ID }}
+      HUBSPOT_API_URL: ${{ secrets.HUBSPOT_API_URL }}
+      HUBSPOT_PORTAL_ID: ${{ secrets.HUBSPOT_PORTAL_ID }}
+      DATOCMS_READONLY_TOKEN: ${{ secrets.DATOCMS_READONLY_TOKEN }}
+      NEXT_DATOCMS_API_TOKEN: ${{ secrets.NEXT_DATOCMS_API_TOKEN }}
+
+    needs: prepare
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+        with:
+          node-version: '20'
+          cache: 'yarn'
+
+      - uses: actions/download-artifact@master
+        with:
+          name: build
+          path: .next
+
+      - name: copy secrets from github secret to .env file
+        run: |
+          echo $HUBSPOT_LEAD_FORM_ID
+          echo HUBSPOT_LEAD_FORM_ID=$HUBSPOT_LEAD_FORM_ID >> .env
+          echo HUBSPOT_API_URL=$HUBSPOT_API_URL >> .env
+          echo HUBSPOT_PORTAL_ID=$HUBSPOT_PORTAL_ID >> .env
+          echo DATOCMS_READONLY_TOKEN=$DATOCMS_READONLY_TOKEN >> .env
+          echo NEXT_DATOCMS_API_TOKEN=$NEXT_DATOCMS_API_TOKEN >> .env
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  deploy:
+    runs-on: ubuntu-latest
+    # to change in production running app
+    environment: production
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+    needs: tests
+    if: success()
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+
+        with:
+          node-version: '20'
+
+      - uses: actions/checkout@v2
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+
+
