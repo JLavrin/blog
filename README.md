@@ -45,7 +45,7 @@ Test production build
 ```bash
 yarn build && yarn start
 # or
-npm run build && npm start
+npm run build && npm run start
 ```
 
 ### Deployment
